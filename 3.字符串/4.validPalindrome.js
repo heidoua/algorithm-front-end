@@ -1,5 +1,6 @@
 /*
 680. 验证回文字符串 II
+LCR 019. 验证回文串 II
 
 给你一个字符串 s，最多 可以从中删除一个字符。
 
@@ -29,10 +30,13 @@ https://leetcode.cn/problems/valid-palindrome-ii/description/
 const s1 = 'aba'
 const s2 = 'abca'
 const s3 = 'abc'
+const s4 = 'cbbcc'
 
 console.log(validPalindrome(s1)) // true
 console.log(validPalindrome(s2)) // true
 console.log(validPalindrome(s3)) // false
+console.log(validPalindrome(s4)) // true
+
 
 function validPalindrome(s) {
 
