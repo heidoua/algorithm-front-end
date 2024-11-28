@@ -32,11 +32,11 @@ s 仅由可打印的 ASCII 字符组成
 
 https://leetcode.cn/problems/valid-palindrome/description/
 */
-const s1 = "A man, a plan, a canal: Panama"
-const s2 = "race a car"
-const s3 = " "
+const s1 = "A man, a plan, a canal: Panama" // true
+const s2 = "race a car" // false
+const s3 = " " // true
 
-console.log(isPalindrome(s3))
+console.log(isPalindrome(s1))
 
 function isPalindrome(s) {
   s = s.replace(/[^a-zA-Z0-9]/g,"").toLowerCase();
