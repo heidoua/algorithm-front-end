@@ -56,16 +56,16 @@ https://leetcode.cn/problems/roman-to-integer/description/
 */
 
 const s1 = "III"
-const s2 = "IX"
-const s3 = "LVIII"
-const s4 = "MCMXCIV"
-const s5 = "IV"
+const s2 = "IV"
+const s3 = "IX"
+const s4 = "LVIII"
+const s5 = "MCMXCIV"
 
 console.log(romanToInt(s1)) // 3
-console.log(romanToInt(s2)) // 9
-console.log(romanToInt(s3)) // 58
-console.log(romanToInt(s4)) // 1994
-console.log(romanToInt(s5)) // 4
+console.log(romanToInt(s2)) // 4
+console.log(romanToInt(s3)) // 9
+console.log(romanToInt(s4)) // 58
+console.log(romanToInt(s5)) // 1994
 
 function romanToInt (s) {
   s = s.replaceAll('IV', 'a')
@@ -99,3 +99,27 @@ function romanToInt (s) {
 
   return res
 };
+
+function romanToInt(s) {
+  let result = 0;
+    const romanToIntMap = {
+        'I' : 1,
+        'V' : 5,
+        'X' : 10,
+        'L' : 50,
+        'C' : 100,
+        'D' : 500,
+        'M' : 1000
+    }
+
+    for(let i = 0; i < s.length; i++) {
+        const currentValue = romanToIntMap[s[i]];
+        if(i < s.length-1 && currentValue < romanToIntMap[s[i+1]]) {
+            result -= currentValue;
+        } else {
+            result += currentValue;
+        }
+    }
+
+    return result;
+}
