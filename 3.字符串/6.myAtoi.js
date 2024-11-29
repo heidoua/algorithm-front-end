@@ -90,12 +90,14 @@ const s2 = " -042"
 const s3 = "1337c0d3"
 const s4 = "0-1"
 const s5 = "words and 987"
+const s6 = "-91283472332"
 
 console.log(myAtoi(s1)) // 42
 console.log(myAtoi(s2)) // -42
 console.log(myAtoi(s3)) // 1337
 console.log(myAtoi(s4)) // 0
 console.log(myAtoi(s5)) // 0
+console.log(myAtoi(s6)) // -2147483648
 
 function myAtoi(s) {
   const matched = s.trim().match(/^([+-](?=\d)|\d)\d*/g)
@@ -111,6 +113,32 @@ function myAtoi(s) {
     if (res >= Math.pow(2, 31)) {
       res = Math.pow(2, 31) - 1
     }
+  }
+
+  return res
+}
+
+function myAtoi(s) {
+  const max = Math.pow(2, 31) - 1
+  const min = -max - 1
+  const reg = /\s*([-\+]?[0-9]*).*/
+  const groups = s.match(reg)
+  let res = 0
+
+  if (groups) {
+    res = +groups[1]
+
+    if (isNaN(res)) {
+      res = 0
+    }
+  }
+
+  if (res > max) {
+    return max
+  }
+
+  if (res < min) {
+    return min
   }
   
   return res
