@@ -37,21 +37,12 @@ search 中的 word 由 '.' 或小写英文字母组成
 https://leetcode.cn/problems/design-add-and-search-words-data-structure/description/
 */
 
-const dic = new WordDictionary()
-
-console.log(dic.addWord);
-
-// dic.addWord("bad")
-// dic.addWord("dad")
-// dic.addWord("mad")
-
-// console.log(search("bad")) // true
-// console.log(search(".ad")) // true
-// console.log(search("b..")) // true
-// console.log(search("pad")) // false
-
 function WordDictionary() {
   this.words = {}
+}
+
+WordDictionary.prototype.test = function() {
+  console.log(111)
 }
 
 WordDictionary.prototype.addWord = function (word) {
@@ -77,3 +68,14 @@ WordDictionary.prototype.search = function (word) {
 
   return this.words[len].some(item => reg.test(item))
 };
+
+const dic = new WordDictionary()
+
+dic.addWord("bad")
+dic.addWord("dad")
+dic.addWord("mad")
+
+console.log(dic.search("bad")) // true
+console.log(dic.search(".ad")) // true
+console.log(dic.search("b..")) // true
+console.log(dic.search("pad")) // false
