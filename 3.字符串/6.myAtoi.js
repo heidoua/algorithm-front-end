@@ -98,5 +98,20 @@ console.log(myAtoi(s4)) // 0
 console.log(myAtoi(s5)) // 0
 
 function myAtoi(s) {
+  const matched = s.trim().match(/^([+-](?=\d)|\d)\d*/g)
+  let res = ""
 
+  if (!matched) {
+    res = 0
+  } else {
+    res = parseInt(matched.join(""))
+    if (res <= Math.pow(-2, 31)) {
+      res = Math.pow(-2, 31)
+    }
+    if (res >= Math.pow(2, 31)) {
+      res = Math.pow(2, 31) - 1
+    }
+  }
+  
+  return res
 }
