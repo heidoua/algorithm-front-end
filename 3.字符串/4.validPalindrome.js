@@ -47,11 +47,12 @@ function validPalindrome(s) {
     j--
   }
 
-  if (isPalindrome(i + 1, j)) {
+  // i === j 用来判断字符串为奇数位，此时遍历到了中间一位字符，表明它前后都是相等的，加上这个字符也是回文字符串，直接返回 true
+  if (i === j || isPalindrome(i + 1, j)) {
     return true
   }
 
-  if (isPalindrome(i, j - 1)) {
+  if (i === j || isPalindrome(i, j - 1)) {
     return true
   }
 
