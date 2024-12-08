@@ -18,15 +18,15 @@
 https://leetcode.cn/problems/remove-duplicates-from-sorted-list/description/
 */
 
-const l1 = generateList([1,1,2])
+const l1 = generateList([1, 1, 2])
 console.log(JSON.stringify(deleteDuplicates(l1))) // {"val":1,"next":{"val":2,"next":null}}
 
-const l2 = generateList([1,1,2,3,3])
+const l2 = generateList([1, 1, 2, 3, 3])
 console.log(JSON.stringify(deleteDuplicates(l2))) // {"val":1,"next":{"val":2,"next":{"val":3,"next":null}}}
 
 function deleteDuplicates(head) {
   let cur = head
-  
+
   while (cur && cur.next) {
     if (cur.val === cur.next.val) {
       cur.next = cur.next.next
@@ -34,7 +34,7 @@ function deleteDuplicates(head) {
       cur = cur.next
     }
   }
-  
+
   return head
 }
 
