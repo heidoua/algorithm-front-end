@@ -10,89 +10,140 @@
 https://leetcode.cn/problems/3sum/description/
 */
 
-// const nums = [-1, 0, 1, 2, -1, -4]
-// const nums = [0,1,1]
-// const nums = [0,0,0]
-const nums = [-1, 0, 1, 2, -1, -4]
-console.log(threeSum(nums))
+const nums1 = [-1, 0, 1, 2, -1, -4];
+const nums2 = [0, 1, 1];
+const nums3 = [0, 0, 0];
+const nums4 = [-1, 0, 1, 2, -1, -4, -2, -3, 3, 0, 4];
+
+console.log(threeSum(nums1)); // [ [-1, 0, 1], [-1, -1, 2] ]
+console.log(threeSum(nums2)); // []
+console.log(threeSum(nums3)); // [[0, 0, 0]]
+console.log(threeSum(nums4)); // [[-4,0,4],[-4,1,3],[-3,-1,4],[-3,0,3],[-3,1,2],[-2,-1,3],[-2,0,2],[-1,-1,2],[-1,0,1]]
 
 function threeSum(nums) {
-  const res = []
+  const res = [];
 
-  nums.sort((a, b) => (a - b))
+  nums.sort((a, b) => a - b);
 
   for (let i = 0, len = nums.length; i < len - 2; i++) {
-    let j = i + 1, k = len - 1
+    let j = i + 1,
+      k = len - 1;
 
     if (i > 0 && nums[i] === nums[i - 1]) {
-      continue
+      continue;
     }
 
     while (j < k) {
       if (nums[i] + nums[j] + nums[k] < 0) {
-        j++
+        j++;
         while (j < k && nums[j] === nums[j - 1]) {
-          j++
+          j++;
         }
       } else if (nums[i] + nums[j] + nums[k] > 0) {
-        k--
+        k--;
         while (j < k && nums[k] === nums[k + 1]) {
-          k--
+          k--;
         }
       } else {
-        res.push([nums[i], nums[j], nums[k]])
-        j++
-        k--
+        res.push([nums[i], nums[j], nums[k]]);
+        j++;
+        k--;
 
         while (j < k && nums[j] === nums[j - 1]) {
-          j++
+          j++;
         }
 
         while (j < k && nums[k] === nums[k + 1]) {
-          k--
+          k--;
         }
       }
     }
   }
 
-  return res
+  return res;
 }
 
 // 优化
 function threeSum(nums) {
-  nums.sort((a, b) => (a - b))
+  nums.sort((a, b) => a - b);
 
-  const res = []
+  const res = [];
 
   for (let i = 0, len = nums.length; i < len; i++) {
     if (i > 0 && nums[i] === nums[i - 1]) {
-      continue
+      continue;
     }
 
-    let left = i + 1, right = len - 1
+    let left = i + 1,
+      right = len - 1;
 
     while (left < right) {
-      const sum = nums[i] + nums[left] + nums[right]
+      const sum = nums[i] + nums[left] + nums[right];
 
       if (sum < 0) {
-        left++
+        left++;
       } else if (sum > 0) {
-        right--
+        right--;
       } else {
-        res.push([nums[i], nums[left], nums[right]])
-        left++
-        right--
+        res.push([nums[i], nums[left], nums[right]]);
+        left++;
+        right--;
 
         while (left < right && nums[left] === nums[left - 1]) {
-          left++
+          left++;
         }
 
         while (left < right && nums[right] === nums[right + 1]) {
-          right--
+          right--;
         }
       }
     }
   }
 
-  return res
+  return res;
+}
+
+function threeSum(nums) {
+  nums.sort((a, b) => a - b);
+  const res = [];
+
+  for (let i = 0, len = nums.length; i < len - 2; i++) {
+    if (i > 0 && nums[i] === nums[i - 1]) {
+      continue;
+    }
+
+    if (nums[i] + nums[i + 1] + nums[i + 2] > 0) {
+      break;
+    }
+
+    if (nums[i] + nums[-2] + nums[-1] < 0) {
+      continue;
+    }
+
+    let j = i + 1;
+    let k = len - 1;
+
+    while (j < k) {
+      const r = nums[i] + nums[j] + nums[k];
+
+      if (r > 0) {
+        k--;
+      } else if (r < 0) {
+        j++;
+      } else {
+        res.push([nums[i], nums[j], nums[k]]);
+        j++;
+        k--;
+
+        while (j < k && nums[j] === nums[j - 1]) {
+          j++;
+        }
+        while (j < k && nums[k] === nums[k + 1]) {
+          k--;
+        }
+      }
+    }
+  }
+
+  return res;
 }
