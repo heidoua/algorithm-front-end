@@ -38,6 +38,7 @@ var MyCalendar = function () {
   this.schedules = [];
 };
 
+// 方法一 暴力解法
 MyCalendar.prototype.book = function (startTime, endTime) {
   for (let i = 0; i < this.schedules.length; i++) {
     const schedule = this.schedules[i];
@@ -49,6 +50,25 @@ MyCalendar.prototype.book = function (startTime, endTime) {
   this.schedules.push([startTime, endTime]);
   return true;
 };
+
+// 代码简化
+MyCalendar.prototype.book = function (startTime, endTime) {
+  for (const schedule of this.schedules) {
+    const left = schedule[0],
+      right = schedule[1];
+
+    if (endTime > left && startTime < right) {
+      return false;
+    }
+  }
+
+  this.schedules.push([startTime, endTime]);
+
+  return true;
+};
+
+// 方法二 二分查找
+// MyCalendar.prototype.book = function (startTime, endTime) {};
 
 const calendar = new MyCalendar();
 
