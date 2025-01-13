@@ -27,18 +27,9 @@
 https://leetcode.cn/problems/binary-tree-maximum-path-sum/description/?envType=study-plan-v2&envId=top-100-liked
 */
 
-/*
-不用看官方题解，那么复杂。 所有树的题目，都想成一颗只有根、左节点、右节点 的小树。然后一颗颗小树构成整棵大树，所以只需要考虑这颗小树即可。接下来分情况， 按照题意：一颗三个节点的小树的结果只可能有如下6种情况：
-
-  1.根 + 左 + 右
-  2.根 + 左
-  3.根 + 右
-  4.根
-  5.左
-  6.右
-
-好了，分析上述6种情况， 只有 2,3,4 可以向上累加，而1,5,6不可以累加（这个很好想，情况1向上累加的话，必然出现分叉，情况5和6直接就跟上面的树枝断开的，没法累加），所以我们找一个全局变量存储 1,5,6这三种不可累加的最大值， 另一方面咱们用遍历树的方法求2,3,4这三种可以累加的情况。 最后把两类情况得到的最大值再取一个最大值即可。
-*/
+// 遍历二叉树，在计算最大链和的同时，顺带更新答案的最大值。
+// 在当前节点「拐弯」的最大路径和 = 左子树最大链和 + 右子树最大链和 + 当前节点值。
+// 返回给父节点的是 max(左子树最大链和，右子树最大链和) + 当前节点值。如果这个值是负数，则返回 0。
 function maxPathSum(root) {
   // 存储最终的最大路径和，初始化为最小安全整数，确保可以处理负数情况
   let res = Number.MIN_SAFE_INTEGER;
@@ -58,29 +49,6 @@ function maxPathSum(root) {
     // 更新最大路径和，考虑以当前节点为最高点的路径和，即左右子树路径和加上当前节点的值
     res = Math.max(res, lVal + rVal + root.val);
     // 对于父节点来说，只能选择左子树或右子树中的最大路径和，且如果结果为负数，不如不选（取 0）
-    return Math.max(Math.max(lVal, rVal) + root.val, 0);
-  }
-}
-
-/*
-树形 DP
-*/
-function maxPathSum(root) {
-  let res = Number.MIN_SAFE_INTEGER;
-
-  dfs(root);
-
-  return res;
-
-  function dfs(root) {
-    if (!root) return 0;
-    //分别递归调用 dfs 函数对当前节点的左子节点和右子节点进行深度优先搜索，并将结果加 1。加 1 是因为当前节点到子节点的边数为 1，通过递归计算出左右子树的深度。
-    const lVal = dfs(root.left) + 1;
-    const rVal = dfs(root.right) + 1;
-
-    //计算以当前节点为转折点的路径长度，即左子树深度（leftLen）加上右子树深度（rightLen），并与当前存储的最大直径 res 比较，更新 res 的值。这一步考虑的是当前节点作为路径上的转折点时的情况，更新直径的最大值。
-    res = Math.max(res, lVal + rVal + root.val);
-    // 返回以当前节点为根的子树的最大深度，即左右子树深度中的最大值，以便父节点使用该信息进行后续的计算
     return Math.max(Math.max(lVal, rVal) + root.val, 0);
   }
 }
