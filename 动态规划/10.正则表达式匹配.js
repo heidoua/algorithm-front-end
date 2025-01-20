@@ -36,7 +36,7 @@
 
 https://leetcode.cn/problems/regular-expression-matching/description/
 */
-var isMatch = function (s, p) {
+function isMatch(s, p) {
   let m = s.length + 1;
   let n = p.length + 1;
   // 创建二维数组 dp
@@ -61,4 +61,54 @@ var isMatch = function (s, p) {
     }
   }
   return dp[m - 1][n - 1];
-};
+}
+
+function isMatch(s, p) {
+  // 若 s 或 p 为 null，不匹配，返回 false
+  if (s == null || p == null) return false;
+
+  // 获取 s 和 p 的长度
+  const sLen = s.length,
+    pLen = p.length;
+  // 创建一个二维数组 dp 用于存储匹配状态
+  const dp = new Array(sLen + 1);
+
+  // 初始化 dp 数组
+  for (let i = 0; i < dp.length; i++) {
+    dp[i] = new Array(pLen + 1).fill(false);
+  }
+
+  // 空字符串和空模式匹配
+  dp[0][0] = true;
+
+  // 处理模式 p 匹配空字符串 s 的情况
+  for (let j = 1; j < pLen + 1; j++) {
+    // 若模式中的字符是 *，其匹配结果取决于前两个位置的结果
+    if (p[j - 1] == "*") dp[0][j] = dp[0][j - 2];
+  }
+
+  // 填充 dp 数组的其余部分
+  for (let i = 1; i < sLen + 1; i++) {
+    for (let j = 1; j < pLen + 1; j++) {
+      // 当 s 和 p 当前字符相等或 p 为. 时，匹配结果取决于前一个字符的匹配结果
+      if (s[i - 1] == p[j - 1] || p[j - 1] == ".") {
+        dp[i][j] = dp[i - 1][j - 1];
+      } else if (p[j - 1] == "*") {
+        // 当模式字符为 * 时
+        if (s[i - 1] == p[j - 2] || p[j - 2] == ".") {
+          // 三种情况：
+          // 1. 匹配零次，取 dp[i][j - 2]
+          // 2. 匹配一次，取 dp[i - 1][j - 2]
+          // 3. 匹配多次，取 dp[i - 1][j]
+          dp[i][j] = dp[i][j - 2] || dp[i - 1][j - 2] || dp[i - 1][j];
+        } else {
+          // 若 * 前的字符不匹配，只能匹配零次
+          dp[i][j] = dp[i][j - 2];
+        }
+      }
+    }
+  }
+
+  // 返回最终结果，即 s 和 p 是否匹配
+  return dp[sLen][pLen];
+}

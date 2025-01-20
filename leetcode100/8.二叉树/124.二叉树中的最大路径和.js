@@ -30,6 +30,7 @@ https://leetcode.cn/problems/binary-tree-maximum-path-sum/description/?envType=s
 // 遍历二叉树，在计算最大链和的同时，顺带更新答案的最大值。
 // 在当前节点「拐弯」的最大路径和 = 左子树最大链和 + 右子树最大链和 + 当前节点值。
 // 返回给父节点的是 max(左子树最大链和，右子树最大链和) + 当前节点值。如果这个值是负数，则返回 0。
+// 时间复杂度 O(n) 空间复杂度 O(n)
 function maxPathSum(root) {
   // 存储最终的最大路径和，初始化为最小安全整数，确保可以处理负数情况
   let res = Number.MIN_SAFE_INTEGER;
